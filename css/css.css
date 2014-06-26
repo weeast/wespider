@@ -1,0 +1,178 @@
+@charset "utf-8";
+/* CSS Document */
+div{ 
+	
+	}
+#background{
+	margin:0 auto; 
+	position:relative;
+	width:960px; 
+	height:640px; 
+	background-image:url(../img/background.png);
+	}
+#tree{ 
+	position:absolute; 
+	width:960px; 
+	height:640px;
+	background-image:url(../img/tree.png);
+	}
+#main_canvas{ 
+	position:absolute; 
+	}
+#score{ 
+	position:absolute;
+	top:6px; 
+	left:37px;
+	width:225px; 
+	height:73px; 
+	background-image:url(../img/score.png);
+	}
+#time{ 
+	position:absolute ;
+	top:6px; 
+	left:364px;
+	width:212px; 
+	height:73px; 
+	background-image:url(../img/time.png);
+	}
+#normal_continue{ 
+	position:absolute; 
+	top:15px; 
+	left:837px; 
+	width:100px; 
+	height:100px; 
+	background-image: url(../img/normalcontinue.png);
+	}
+#normal_continue:hover{
+	background-image:url(../img/clickcontinue.png);
+	}
+#normal_stop{ 
+	position:absolute; 
+	top:15px; 
+	left:837px; 
+	width:100px; 
+	height:100px; 
+	background-image: url(../img/normalstop.png);
+	}
+#normal_stop:hover{
+	background-image:url(../img/clickstop.png);
+	}
+#stop_box{ 
+	position:absolute; 
+	top:8px; 
+	left:88px; 
+	width:745px; 
+	height:443px;
+	background-image:url(../img/stopbox.png);
+	}
+#sound_box{ 
+	position:absolute; 
+	top:575px; 
+	left:45px; 
+	width:389px; 
+	height:58px; 
+	background-image:url(../img/soundbox.png);
+	}
+#health_box{ 
+	position:absolute; 
+	top:574px; 
+	left:531px; 
+	width:388px; 
+	height:59px; 
+	background-image:url(../img/healthbox.png);
+	}
+#logo{ 
+	position:absolute; 
+	top:534px; 
+	left:433px; 
+	width:98px; 
+	height:99px; 
+	background-image:url(../img/logo.png);
+	}
+#continue{ 
+	position:absolute; 
+	top:240px; 
+	left:50px; 
+	width:100px; 
+	height:150px; 
+	background-image: url(../img/normalstopbox_continue.png);
+	}
+#continue:hover{
+	background-image:url(../img/clickstopbox_continue.png);
+	}
+#restore{ 
+	position:absolute; 
+	top:240px; 
+	left:188px; 
+	width:100px;
+	height:150px; 
+	background-image:url(../img/normalstopbox_restore.png);
+	}
+#restore:hover{
+	background-image:url(../img/clickstopbox_restore.png);
+	}
+#mainnue{ 
+	position:absolute; 
+	top:240px; 
+	left:340px; 
+	width:100px; 
+	height:180px; 
+	background-image:url(../img/normalstopbox_mainnue.png);
+	}
+#mainnue:hover{
+	background-image:url(../img/clickstopbox_mainnue.png);
+	}
+
+#first_time{
+	position:relative; 
+	top:22px; 
+	left:90px;
+	}
+#second_time{ 
+	position:relative; 
+	top:22px; 
+	left:70px;
+	}
+#third_time{ 
+	position:relative; 
+	top:22px; 
+	left:50px;
+	}
+#first_score{ 
+	position:relative; 
+	top:22px; 
+	left:90px;
+	}
+#second_score{ 
+	position:relative; 
+	top:22px; 
+	left:70px;
+	}
+#third_score{ 
+	position:relative; 
+	top:22px; 
+	left:50px;
+	} 
+#fourth_score{ 
+	position:relative; 
+	top:22px; 
+	left:30px;
+	}
+#health{ 
+	position:relative; 
+	top:26px; 
+	left:57px;
+	}
+#sound{
+	position:relative; 
+	top:26px; 
+	left:7px;
+	}
+#silence_box{
+	position:absolute; 
+	top:575px; 
+	left:45px; 
+	width:389px; 
+	height:58px; 
+	background-image:url(../img/nosoundbox.png) ;
+	}

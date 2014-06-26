@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+
+<script type="text/javascript" language="javascript" src="conllisionManager.js"></script>
+
+<script>
+var manager = conllisionManager(),
+	position = [{x:1*60,y:2*60},{x:0*60,y:3*60},{x:3*60,y:1*60}],
+	collider = manager.newCollider(1,1,position),
+	newPosition = [{x:2*60,y:1*60},{x:3*60,y:0*60},{x:1*60,y:3*60},{x:4*60,y:2*60}],
+	map = [33,48,19,18,3,49,36];
+collider.update(position);
+document.write(collider.position);
+collider.update(newPosition);
+document.write(collider.position);
+
+</script>
+</head>
+
+<body>
+</body>
+</html>
