@@ -1,6 +1,6 @@
 // JavaScript Document
 //蜘蛛网管理类
-var netManager = function(){
+var netManager = function(gameCallBack){
 	var netList = {},
 		netListIndex = 0,
 		newNets,
@@ -95,9 +95,20 @@ var netManager = function(){
 					}
 					(that.newNets).setCollider();
 					netList[netListIndex] = that.newNets;
+					var health = Math.floor(that.newNets.getLen()/SYS_difficulty.net_reduce);
+					gameCallBack({message:"netCreated",health:health});
 					netListIndex++;	
 					that.newNets=null;
 					newNetFlag=0;
+					if($("#netbreak")){
+						$("#netbreak").append('<div style="width:220px;float:left;margin-top:10px" id="'+(netListIndex-1)+'" name="'+(netListIndex-1)+'" ></div>');
+						$("#"+(netListIndex-1)).append('<button style="width:100px;height:20px;float:left" value="0" onclick="breakPoint(this)" >0</button>');
+						$("#"+(netListIndex-1)).append('<button style="width:100px;height:20px;float:left" value="1" onclick="breakPoint(this)" >1</button>');
+						$("#"+(netListIndex-1)).append('<button style="width:100px;height:20px;float:left" value="2" onclick="breakPoint(this)">2</button>');
+						$("#"+(netListIndex-1)).append('<button style="width:100px;height:20px;float:left" value="3" onclick="breakPoint(this)">3</button>');
+						$("#"+(netListIndex-1)).append('<button style="width:100px;height:20px;float:left" value="4" onclick="breakPoint(this)">4</button>');
+						$("#"+(netListIndex-1)).append('<button style="width:100px;height:20px;float:left" value="5" onclick="breakPoint(this)">5</button>');
+					}
 				}
 				for(var idx in netList){
 					netList[idx].draw();
@@ -109,44 +120,71 @@ var netManager = function(){
 						for(var i=0;i<netList[idx].getCutLen();i++){
 							//不是移除的点就加入中间点
 							if(netList[idx].getCut(i)[0] != 'break'){
+								
+								if(netList[idx].getCut(i)[0] != 0 && that.getNet(netList[idx].getCut(i)[1]))
+									that.getNet(netList[idx].getCut(i)[1]).getCutPoint(netList[idx].getCut(i))[1] = netListIndex;
 								if(!flag)
 									tempstart = netList[idx].getCut(i);
-								if(netList[idx].getCut(i)[0] != 0)
-									that.getNet(netList[idx].getCut(i)[1]).getCutPoint(netList[idx].getCut(i))[1] = netListIndex;
-								temppoint.push(netList[idx].getCut(i));
+								else
+									temppoint.push(netList[idx].getCut(i));
 								flag = 1;
 							}
 							//是移除点根据flag来判断是否需要新生成点
 							else if(flag){
 								flag = 0;
-								var cutnet = net({x:tempstart[2],y:tempstart[3]},{x:temppoint[temppoint.length-1][2],y:temppoint[temppoint.length-1][3]});
-								cutnet.getCutPoint(tempstart)[0] = tempstart[0];
-								cutnet.getCutPoint(tempstart)[1] = tempstart[1];
-								cutnet.getCutPoint(temppoint[temppoint.length-1])[0] = temppoint[temppoint.length-1][0];
-								cutnet.getCutPoint(temppoint[temppoint.length-1])[1] = temppoint[temppoint.length-1][1];
-								for(var j=1;j<temppoint.length-1;++j)
-									cutnet.addCut(temppoint[j]);
-								netList[netListIndex] = cutnet;
-								netListIndex++;	
-								temppoint = [];
+								if(temppoint.length>0){
+									var cutnet = net({x:tempstart[2],y:tempstart[3]},{x:temppoint[temppoint.length-1][2],y:temppoint[temppoint.length-1][3]});
+									cutnet.getCutPoint(tempstart)[0] = tempstart[0];
+									cutnet.getCutPoint(tempstart)[1] = tempstart[1];
+									cutnet.getCutPoint(temppoint[temppoint.length-1])[0] = temppoint[temppoint.length-1][0];
+									cutnet.getCutPoint(temppoint[temppoint.length-1])[1] = temppoint[temppoint.length-1][1];
+									for(var j=0;j<temppoint.length-1;++j)
+										cutnet.addCut(temppoint[j]);
+									netList[netListIndex] = cutnet;
+									netListIndex++;	
+									temppoint = [];
+									if($("#netbreak")){
+										$("#netbreak").append('<div style="width:220px;float:left;margin-top:10px" id="'+(netListIndex-1)+'" name="'+(netListIndex-1)+'" ></div>');
+										$("#"+(netListIndex-1)).append('<button style="width:100px;height:20px;float:left" value="0" onclick="breakPoint(this)" >0</button>');
+										$("#"+(netListIndex-1)).append('<button style="width:100px;height:20px;float:left" value="1" onclick="breakPoint(this)" >1</button>');
+										$("#"+(netListIndex-1)).append('<button style="width:100px;height:20px;float:left" value="2" onclick="breakPoint(this)">2</button>');
+										$("#"+(netListIndex-1)).append('<button style="width:100px;height:20px;float:left" value="3" onclick="breakPoint(this)">3</button>');
+										$("#"+(netListIndex-1)).append('<button style="width:100px;height:20px;float:left" value="4" onclick="breakPoint(this)">4</button>');
+										$("#"+(netListIndex-1)).append('<button style="width:100px;height:20px;float:left" value="5" onclick="breakPoint(this)">5</button>');
+									}
+								}
 							}
 						}
 						//当最后一个点不是移除点的情况
 						if(flag){
 							flag = 0;
-							var cutnet = net({x:tempstart[2],y:tempstart[3]},{x:temppoint[temppoint.length-1][2],y:temppoint[temppoint.length-1][3]});
-							cutnet.getCutPoint(tempstart)[0] = tempstart[0];
-							cutnet.getCutPoint(tempstart)[1] = tempstart[1];
-							cutnet.getCutPoint(temppoint[temppoint.length-1])[0] = temppoint[temppoint.length-1][0];
-							cutnet.getCutPoint(temppoint[temppoint.length-1])[1] = temppoint[temppoint.length-1][1];
-							for(var j=1;j<temppoint.length-1;++j)
-								cutnet.addCut(temppoint[j]);
-							netList[netListIndex] = cutnet;
-							netListIndex++;	
+							if(temppoint.length>0){
+								var cutnet = net({x:tempstart[2],y:tempstart[3]},{x:temppoint[temppoint.length-1][2],y:temppoint[temppoint.length-1][3]});
+								cutnet.getCutPoint(tempstart)[0] = tempstart[0];
+								cutnet.getCutPoint(tempstart)[1] = tempstart[1];
+								cutnet.getCutPoint(temppoint[temppoint.length-1])[0] = temppoint[temppoint.length-1][0];
+								cutnet.getCutPoint(temppoint[temppoint.length-1])[1] = temppoint[temppoint.length-1][1];
+								for(var j=0;j<temppoint.length-1;++j)
+									cutnet.addCut(temppoint[j]);
+								netList[netListIndex] = cutnet;
+								netListIndex++;	
+								if($("#netbreak")){
+									$("#netbreak").append('<div style="width:220px;float:left;margin-top:10px" id="'+(netListIndex-1)+'" name="'+(netListIndex-1)+'" ></div>');
+									$("#"+(netListIndex-1)).append('<button style="width:100px;height:20px;float:left" value="0" onclick="breakPoint(this)" >0</button>');
+									$("#"+(netListIndex-1)).append('<button style="width:100px;height:20px;float:left" value="1" onclick="breakPoint(this)" >1</button>');
+									$("#"+(netListIndex-1)).append('<button style="width:100px;height:20px;float:left" value="2" onclick="breakPoint(this)">2</button>');
+									$("#"+(netListIndex-1)).append('<button style="width:100px;height:20px;float:left" value="3" onclick="breakPoint(this)">3</button>');
+									$("#"+(netListIndex-1)).append('<button style="width:100px;height:20px;float:left" value="4" onclick="breakPoint(this)">4</button>');
+									$("#"+(netListIndex-1)).append('<button style="width:100px;height:20px;float:left" value="5" onclick="breakPoint(this)">5</button>');
+								}
+							}
 						}
 						
 						
 						delete netList[idx];
+						if($("#"+idx)){
+							$("#"+idx).remove();
+						}
 					}	
 								
 				}	

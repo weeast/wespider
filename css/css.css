@@ -1,8 +1,94 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
-div{ 
-	
+#fps{
+	position:absolute;
+	width:71px;
+	height:20px;
+	top:10px;
+	left:10px;
+	src:url(../img/FPS.png);
+	display:none;
 	}
+#first_fps{
+	position:absolute;
+	width:22px;
+	height:20px;
+	top:10px;
+	left:88px;
+	display:none;
+	}
+#second_fps{
+	position:absolute;
+	width:22px;
+	height:20px;
+	top:10px;
+	left:113px;
+	display:none;
+	}
+#title{
+	position:absolute;
+	top:35px;
+	left:240px;
+	width:457px;
+	height:257px;
+	background-image: url(../img/title.png);
+	}
+#start{
+	position:absolute;
+	top:360px;
+	left:325px;
+	width:294px;
+	height:72px;
+	background-image:url(../img/start.png);
+	background-repeat:no-repeat;
+	}
+#start:hover{
+	top:346px;
+	height:92px;
+	background-image:url(../img/onstart.png);
+	}
+#help{
+	position:absolute;
+	top:450px;
+	left:410px;
+	width:121px;
+	height:61px;
+	background-image:url(../img/help.png);
+	background-repeat:no-repeat;
+	}
+#help:hover{
+	top:444px;
+	width:127px;
+	height:71px;
+	background-image:url(../img/onhelp.png);
+	}
+#rule_back{
+	position:absolute;
+	overflow:auto;
+	width:700px;
+	height:600px;
+	left:100px;
+	top:20px;
+	background-image:url(../img/ruleback.png);
+	}
+#rule{
+	position:relative;
+	width:499px;
+	height:1232px;
+	left:90px;
+	top:30px;
+	background-image:url(../img/playcontrol.png);
+	}
+#back{
+	position:absolute;
+	left:820px;
+	top:540px;
+	width:100px;
+	height:80px;
+	}
+#back:hover{
+	top:538px;
+}
 #background{
 	margin:0 auto; 
 	position:relative;
@@ -21,19 +107,21 @@ div{
 	}
 #score{ 
 	position:absolute;
-	top:6px; 
-	left:37px;
-	width:225px; 
-	height:73px; 
-	background-image:url(../img/score.png);
+	top:60px; 
+	left:195px;
+	width:80px; 
+	height:230px; 
+	background-image:url(../img/score1.png);
+	display:none;
 	}
 #time{ 
 	position:absolute ;
-	top:6px; 
-	left:364px;
-	width:212px; 
-	height:73px; 
-	background-image:url(../img/time.png);
+	top:380px; 
+	left:195px;
+	width:80px; 
+	height:220px; 
+	background-image:url(../img/time1.png);
+	display:none;
 	}
 #normal_continue{ 
 	position:absolute; 
@@ -53,6 +141,7 @@ div{
 	width:100px; 
 	height:100px; 
 	background-image: url(../img/normalstop.png);
+	display:none;
 	}
 #normal_stop:hover{
 	background-image:url(../img/clickstop.png);
@@ -67,28 +156,23 @@ div{
 	}
 #sound_box{ 
 	position:absolute; 
-	top:575px; 
-	left:45px; 
-	width:389px; 
-	height:58px; 
+	top:25px; 
+	left:1097px; 
+	width:58px; 
+	height:308px; 
 	background-image:url(../img/soundbox.png);
+	display:none;
 	}
 #health_box{ 
 	position:absolute; 
-	top:574px; 
-	left:531px; 
-	width:388px; 
-	height:59px; 
+	top:338px; 
+	left:1097px; 
+	width:59px; 
+	height:332px; 
 	background-image:url(../img/healthbox.png);
+	display:none;
 	}
-#logo{ 
-	position:absolute; 
-	top:534px; 
-	left:433px; 
-	width:98px; 
-	height:99px; 
-	background-image:url(../img/logo.png);
-	}
+
 #continue{ 
 	position:absolute; 
 	top:240px; 
@@ -125,48 +209,77 @@ div{
 
 #first_time{
 	position:relative; 
-	top:22px; 
-	left:90px;
+	top:85px; 
+	left:15px;
 	}
 #second_time{ 
 	position:relative; 
-	top:22px; 
-	left:70px;
+	top:77px; 
+	left:15px;
 	}
 #third_time{ 
 	position:relative; 
-	top:22px; 
-	left:50px;
+	top:70px; 
+	left:15px;
 	}
 #first_score{ 
 	position:relative; 
-	top:22px; 
-	left:90px;
+	top:75px; 
+	left:15px;
 	}
 #second_score{ 
 	position:relative; 
-	top:22px; 
-	left:70px;
+	top:65px; 
+	left:15px;
 	}
 #third_score{ 
 	position:relative; 
-	top:22px; 
-	left:50px;
+	top:55px; 
+	left:15px;
 	} 
 #fourth_score{ 
 	position:relative; 
-	top:22px; 
-	left:30px;
+	top:45px; 
+	left:15px;
+	}
+#first{
+	position:absolute;
+	top:55px;
+	left:250px;
+	height:60px;
+	weight:60px;
+	}
+#second{
+	position:absolute;
+	top:55px;
+	left:290px;
+	height:60px;
+	weight:60px;
+	}
+#third{
+	position:absolute;
+	top:55px;
+	left:330px;
+	height:60px;
+	weight:60px;
+	}
+#fourth{
+	position:absolute;
+	top:55px;
+	left:370px;
+	height:60px;
+	weight:60px;
 	}
 #health{ 
 	position:relative; 
-	top:26px; 
-	left:57px;
+	top:7px; 
+	left:27px;
 	}
 #sound{
 	position:relative; 
-	top:26px; 
-	left:7px;
+	top:57px; 
+	left:26px;
+	height:
 	}
 #silence_box{
 	position:absolute; 
@@ -175,4 +288,84 @@ div{
 	width:389px; 
 	height:58px; 
 	background-image:url(../img/nosoundbox.png) ;
+	}
+#gameover{
+	position:absolute;
+	top:-100px;
+	left:106px;
+	height:265px;
+	width:744px;
+	background-image: url(../img/gameover.png);
+	}
+#score_name{
+	position:absolute;
+	top:-100px;
+	left:110px;
+	width:738px;
+	height:310px;
+	background-image:url(../img/score_name.png);
+	}
+
+#name{
+	position:absolute;
+	font-size:36px;
+	top: 140px;
+	left: 220px;
+	width: 309px;
+	height: 69px;
+	background: url(../img/input.png);
+	background-repeat: no-repeat;
+	border: 0px;
+	overflow: hidden;
+	}
+#ok{
+	position:absolute;
+	top:210px;
+	left:552px;
+	width:147px;
+	height:67px;	
+	background:url(../img/ok.png);
+	border-radius:15px;
+
+	}
+#final_score{
+	position:absolute;
+	font-size:36px;
+	top: 49px;
+	left: 220px;
+	width: 309px;
+	height: 69px;
+	}
+#ranking_list{
+	position:absolute;
+	top:20px;
+	left:72px;
+	width:814px;
+	height:605px;
+	background-image:url(../img/ranking_list.png);
+	}
+#replay{
+	position:absolute;
+	top:505px;
+	left:620px;
+	width:147px;
+	height:67px;
+	background:url(../img/replay.png);
+	border-radius:15px;
+
+	}
+.div_list{
+	position:relative;
+	width:600px; 
+	height:50px; 
+	border:#FFF solid thin; 
+	left:100px;
+	}
+.span_list{
+	font-size:36px;
+	color:#FFF;
+	font-family:微软雅黑;
+    display:inline-block; 
+	height:45px; 
+	width:190px;
 	}

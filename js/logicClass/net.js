@@ -149,18 +149,37 @@ var net = function(sPoint,ePoint){
 					if(crossPoint[flag-2]<=cutpoint[i][flag])	
 						break;
 				}
-				
-				//计算受力
-				var forceLen =Math.sqrt( (crossPoint[0] - cutpoint[i-1][2])*(crossPoint[0] - cutpoint[i-1][2])+(crossPoint[1] - cutpoint[i-1][3])*(crossPoint[1] - cutpoint[i-1][3]));
-				var coutLen =cutpoint[i-1][4];	
-				forceLen = (forceLen<Math.abs(coutLen - forceLen)) ? forceLen : Math.abs(coutLen - forceLen);
-				var temp =  ((coutLen-300)/50)*((coutLen-300)/50)*((coutLen-300)/50);
-				var banLen = (temp > 0) ? 500-200/(temp+1) : 100 - 200/(temp -1);
-				var force = 1/forceLen + 1/(banLen - forceLen);
-				if(force < SYS_insects.getInsect(insectFlag).getWeight()){
-					that.remove();
-					that.breakNet(i,1);
-					that.breakNet(i-1,-1);
+				if(i<cutpoint.length){
+					//计算受力
+					var forceLen =Math.sqrt( (crossPoint[0] - cutpoint[i-1][2])*(crossPoint[0] - cutpoint[i-1][2])+(crossPoint[1] - cutpoint[i-1][3])*(crossPoint[1] - cutpoint[i-1][3]));
+					var coutLen =cutpoint[i-1][4];	
+					forceLen = (forceLen<Math.abs(coutLen - forceLen)) ? forceLen : Math.abs(coutLen - forceLen);
+					//版本1
+					/*var temp =  ((coutLen-300)/50)*((coutLen-300)/50)*((coutLen-300)/50);
+					var banLen = (temp > 0) ? 500-200/(temp+1) : 100 - 200/(temp -1);
+					var force = 1/forceLen + 1/(banLen - forceLen);
+					if(force < SYS_insects.getInsect(insectFlag).getWeight()){*/
+					//版本2
+					var ban = 1;
+					if(forceLen>500)
+						ban = 0.1;
+					else if(forceLen>400)
+						ban = 0.15;
+					else if(forceLen>300)
+						ban = 0.2;
+					else if(forceLen>200)
+						ban = 0.25;
+					else if(forceLen>100)
+						ban = 0.3;
+					else
+						ban = 0.35;
+						
+					if(forceLen > coutLen*ban){
+						SYS_insects.getInsect(insectFlag).setFall();
+						that.remove();
+						that.breakNet(i,1);
+						that.breakNet(i-1,-1);
+					}
 				}
 					
 			}
@@ -174,7 +193,8 @@ var net = function(sPoint,ePoint){
 			for(i;i<cutpoint.length;++i)
 				if(point[flag]<=cutpoint[i][flag])	
 					break;
-			point.push(0);
+			if(point.length<5)
+				point.push(0);
 			if(i>0)
 				cutpoint[i-1][4] = 	Math.sqrt((cutpoint[i-1][2]-point[2])*(cutpoint[i-1][2]-point[2])+(cutpoint[i-1][3]-point[3])*(cutpoint[i-1][3]-point[3]));
 			if(i<cutpoint.length)
@@ -201,6 +221,7 @@ var net = function(sPoint,ePoint){
 		},
 		
 		breakNet : function(index,flag){
+			index = Math.floor(index);
 			switch (cutpoint[index][0]){
 			case 'attached':
 				//如果为被依附点，则需依附点断掉
@@ -214,9 +235,10 @@ var net = function(sPoint,ePoint){
 					//如果存在依附线段上存在依附点则将依附点周围的点都断掉
 					if(i<=breaknet.getCutLen()){
 						breaknet.remove();
-						breaknet.breakNet(i,flag);
-						if(i-flag>=0&&i-flag<breaknet.getCutLen())
-							breaknet.breakNet(i-flag,-flag);	
+						if(i==0)
+							breaknet.breakNet(i,1);
+						else if(i==(breaknet.getCutLen()-1))
+							breaknet.breakNet(i,-1);	
 							
 					}
 				}
@@ -239,10 +261,21 @@ var net = function(sPoint,ePoint){
 					if(cutpoint[index][2] == breaknet.getCut(i)[2]&&cutpoint[index][3] == breaknet.getCut(i)[3])	
 						break;
 				if(i<=breaknet.getCutLen())
-					breaknet.getCut(i)[0] = 'attached'
+					breaknet.getCut(i)[0] = 'attached';				
 				cutpoint[index][0] = 'attach';
+				var temp = [];
+				for(var i =0;i<cutpoint[index].length;++i)
+					temp.push(cutpoint[index][i]);
+				
+				that.addCut(temp);
+				if(flag==1)
+					cutpoint[index][0] = 'break';
+				else
+					cutpoint[index+1][0] = 'break';
 				break;
 			default:
+				if(index+flag>=0&&index+flag<cutpoint.length)
+					that.breakNet(index+flag,flag);
 				cutpoint[index][0] = 'break';
 				break;
 			}
@@ -300,7 +333,9 @@ var net = function(sPoint,ePoint){
 			}
 		},
 		
-		
+		getLen : function(){
+			return 	length;
+		},
 		
 		setCollider : function(){
 			var netpo = lineSplite();

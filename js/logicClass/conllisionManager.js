@@ -111,11 +111,12 @@ var conllisionManager = function(){
 									collideeObj.callback();
 								continue;
 							}
+							colliderObj.callback(collideeObj.colliderFlag);
 							if(collideeObj.colliderFlag == NET)
 								collideeObj.callback(this.colliderFlag,temp);
 							else
 								collideeObj.callback(this.colliderFlag);
-							colliderObj.callback(collideeObj.colliderFlag);
+							
 							return true;
 						}
 					}
@@ -147,11 +148,15 @@ var conllisionManager = function(){
 						}
 					}
 					for (var y = -60; y <= 60; y += 60){
+						var breakflag = 0;
 						for(var x = -60; x <= 60; x += 60){
 							if(	colliderObj.checkCollisions(x,y)){
+								breakflag = 1;
 								break;	
 							}
 						}
+						if(breakflag)
+							break;
 					}
 				}
 			}

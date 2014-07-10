@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>蜘蛛吃虫虫</title>
+<link  rel="stylesheet" href="css/css.css" type="text/css" />
+
+<script type="text/javascript" language="javascript" src="js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" language="javascript" src="js/UIjs.js"></script>
+<script type="text/javascript" language="javascript" src="js/logicClass/processor.js"></script>
+<script type="text/javascript" language="javascript" src="js/logicClass/playerControl.js"></script>
+<script type="text/javascript" language="javascript" src="js/logicClass/vector2d.js"></script>
+<script type="text/javascript" language="javascript" src="js/logicClass/timeInfo.js"></script>
+<script type="text/javascript" language="javascript" src="js/logicClass/conllisionManager.js"></script>
+<script type="text/javascript" language="javascript" src="js/logicClass/canvasSprite.js"></script>
+<script type="text/javascript" language="javascript" src="js/logicClass/animEffect.js"></script>
+<script type="text/javascript" language="javascript" src="js/logicClass/insect.js"></script>
+<script type="text/javascript" language="javascript" src="js/logicClass/insectsManager.js"></script>
+<script type="text/javascript" language="javascript" src="js/logicClass/net.js"></script>
+<script type="text/javascript" language="javascript" src="js/logicClass/netManager.js"></script>
+<script type="text/javascript" language="javascript" src="js/logicClass/spider.js"></script>
+<script type="text/javascript" language="javascript" src="js/logicClass/tree.js"></script>
+<script type="text/javascript" language="javascript" src="js/logicClass/game.js"></script>
+
+</head>
+<!--oncontextmenu="return false"--> 
+<body  onselectstart="return false" ondragstart="return false" ondrag="return false" onbeforecopy="return false" oncopy=document.selection.empty() onselect=document.selection.empty()>
+<button style="width:100px;height:20px" id="startbtn" value="开始"  >开始</button>
+<span id="x"></span>
+<span id="y"></span>
+<div id="netbreak" style="position:relative; float:left;width:220px">
+    	
+</div>
+<div id="background">
+	<!-- onclick="sigleClick(this)" ondblclick="doubleClick(this)" onmousedown="mouseDown(this)" onmouseup="mouseUp(this)" onmousemove="mouseCoor(this)"ondragstart="dragstart(event)"-->
+    <!--<div id="tree" ></div>-->
+    
+	<canvas id="main_canvas"  width="960" height="640"  draggable="true" ></canvas>
+	<div id="score">
+		<img id="first_score"/>
+		<img id="second_score" />
+		<img id="third_score" />
+		<img id="fourth_score" />
+	</div>
+	<div id="time" >
+		<img id="first_time" />
+		<img id="second_time" />
+		<img id="third_time" />
+	</div>
+	<div id="normal_continue" onclick="clickNContinue()" style="display:none"></div>
+	<div id="normal_stop" onclick="clickNStop()" ></div>
+	<div id="stop_box" style="display:none">
+		<div id="continue" onclick="clickContinue()"></div>
+		<div id="restore" onclick="clickRestore()"></div>
+		<div id="mainnue" onclick="clickMainnue()"></div>
+	</div>
+	<div id="sound_box">
+		<img id="sound" src="img/health.png" />
+	</div>
+	<div id="silence_box" style="display:none"></div>
+	<div id="health_box">
+		<img id="health" src="img/health.png" />
+	</div>
+	<div id="logo"></div>
+</div>
+</body>
+</html>

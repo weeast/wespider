@@ -22,16 +22,18 @@ var spider = function(gameCallback){
 		参数：insect；
 		返回：bool；*/
 		var collision =  function(insect){
-			var insects = SYS_insects.getInsect(insect.colliderFlag),
-				point = insects.getXY(),
-				insectRadius = insects.getRadius(),
-				vector = vector2d(x - point.x,y - point.y);
-				distance = vector.length();
-				
+			var insects = SYS_insects.getInsect(insect.colliderFlag);
+			if(insects){
+				var	point = insects.getXY(),
+					insectRadius = insects.getRadius(),
+					vector = vector2d(x - point.x,y - point.y);
+					distance = vector.length();
+					
 				if(distance <= insectRadius+spiderRadius){
 					return true;
 				}
-				return false;
+			}
+			return false;
 		};
 		
 		function replaceFunc(stateStr,n){	
@@ -296,7 +298,7 @@ var spider = function(gameCallback){
 			health-=num;
 			if(health<=0){
 			health=0;
-			gameCallBack({message:"dead"});
+			gameCallback({message:"dead"});
 			}
 			return health;
 		},

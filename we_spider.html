@@ -21,51 +21,71 @@
 <script type="text/javascript" language="javascript" src="js/logicClass/spider.js"></script>
 <script type="text/javascript" language="javascript" src="js/logicClass/tree.js"></script>
 <script type="text/javascript" language="javascript" src="js/logicClass/game.js"></script>
-
+<script type="text/javascript" language="javascript" src="js/Ajax.js"></script>
 </head>
 <!--oncontextmenu="return false"--> 
-<script>
-//Dhtml:用ondrag事件简单的实现鼠标拖动物件.
-//原作:风云舞
-var xx=0,yy=0
-function draged(e){
-	this.style.left=event.x-xx;this.style.top=event.y-yy
-}
-</script>
-<body  onselectstart="return false" ondragstart="return false" ondrag="return false" onbeforecopy="return false" oncopy=document.selection.empty() onselect=document.selection.empty()>
-<button style="width:100px;height:20px" id="startbtn" value="开始" ></button>
+
+<body  onselectstart="return false" ondragstart="return false" ondrag="return false" onbeforecopy="return false" oncopy=document.selection.empty() onselect=document.selection.empty() style="overflow:hidden;top:0px;left:0px">
+<img  src="img/tree1.png" style=" position:absolute;top:0px;left:0px; height:100%; z-index:-2"/>
+<img  src="img/tree2.png" style="position:absolute;top:0px;right:0px; height:100%;z-index:-2"/>
 <span id="x"></span>
 <span id="y"></span>
-<div id="background">
-	<!-- onclick="sigleClick(this)" ondblclick="doubleClick(this)" onmousedown="mouseDown(this)" onmouseup="mouseUp(this)" onmousemove="mouseCoor(this)"ondragstart="dragstart(event)"-->
-    <div id="tree" ></div>
+<div style="width:1350px; position:absolute; top:0px; left:0px">
+<div id="background" style="z-index:1">
+	<div id="message_box" style=" display:none;position:relative;top:-300px;background-image:url(img/stopbox.png);width:750px;height:450px; z-index:-1; margin:0 auto">
+    	<span id="message_info" style=" display:inline-block;position:relative ;color:#fff; font-family:微软雅黑;font-size:36px; font-weight:bolder;top:270px;left:70px;width:400px; word-break:break-all"></span>
+    </div>
 	<canvas id="main_canvas"  width="960" height="640"  draggable="true" ></canvas>
-	<div id="score">
-		<img id="first_score"/>
-		<img id="second_score" />
-		<img id="third_score" />
-		<img id="fourth_score" />
-	</div>
-	<div id="time" >
-		<img id="first_time" />
-		<img id="second_time" />
-		<img id="third_time" />
-	</div>
+    <div id="title" ></div>  
+    <div id="start" onclick="clickStart()"></div>
+    <div id="help" onclick="clickHelp()"></div>
+    <div id="rule_back" style="display:none">
+    	<div id="rule" ></div>
+    </div>
+    <img id="back" src="img/back.png" style="display:none"  onclick="clickBack()"/>
+    <div id="gameover" style="display:none"></div>
+    <div id="score_name" style="display:none">
+    	<div id="final_score" value=""></div>
+		<img id="first" />
+		<img id="second" />
+		<img id="third" />
+		<img id="fourth" />
+        <input name="name" type="text" id="name" maxlength="7" />
+    	<input id="ok"  type="submit" value=""  onclick="clickOk()"/>
+	</div> 
+    <div id="ranking_list" style="display:none">
+  		<input id="replay" type="button" value="" onclick="clickReplay()">
+    </div>
+    <img id="fps" src="img/FPS.png" />
+    <img id="first_fps" />
+    <img id="second_fps" />
 	<div id="normal_continue" onclick="clickNContinue()" style="display:none"></div>
-	<div id="normal_stop" onclick="clickNStop()" ></div>
+    <div id="normal_stop" onclick="clickNStop()"  style="display:none"></div>
 	<div id="stop_box" style="display:none">
 		<div id="continue" onclick="clickContinue()"></div>
 		<div id="restore" onclick="clickRestore()"></div>
 		<div id="mainnue" onclick="clickMainnue()"></div>
 	</div>
-	<div id="sound_box">
-		<img id="sound" src="img/health.png" />
+	
+</div>
+<div id="score" style=" z-index:-1">
+		<img id="first_score"/>
+		<img id="second_score" />
+		<img id="third_score" />
+		<img id="fourth_score" />
+	</div>
+	<div id="time" style=" z-index:-1" >
+		<img id="first_time" />
+		<img id="second_time" />
+		<img id="third_time" />
+	</div>
+    <div id="sound_box" style=" z-index:-1">
+		<img id="sound" src="img/soundhealth.png"  />
 	</div>
 	<div id="silence_box" style="display:none"></div>
-	<div id="health_box">
+	<div id="health_box" style=" z-index:-1">
 		<img id="health" src="img/health.png" />
 	</div>
-	<div id="logo"></div>
-</div>
+ </div>
 </body>
 </html>

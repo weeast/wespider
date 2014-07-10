@@ -7,7 +7,7 @@ var insectsManager = function(gameCallBack){
 		{point:3,health:25,frame:54}
 		],
 		newInsectList = {},
-		flagIndex = 4,
+		flagIndex = [],
 		catchedInsectList = {};
 		
 	return that = {
@@ -22,23 +22,32 @@ var insectsManager = function(gameCallBack){
 			for(idx in catchedInsectList){
 				if(!catchedInsectList[idx].removed)
 					catchedInsectList[idx].move();
-				if(catchedInsectList[idx].getZ()<=-15000){
+				else if(catchedInsectList[idx].getZ()<=-1500){
 					catchedInsectList[idx].remove();
+					var temp = Math.floor(Math.log(idx)/Math.log(2))-2;
+					flagIndex[temp] = 0;
 					delete catchedInsectList[idx];	
 				}
-				
+				else{
+					var temp = Math.floor(Math.log(idx)/Math.log(2))-2;
+					flagIndex[temp] = 0;
+					delete catchedInsectList[idx];	
+				}
 			};
 			
 			for(idx in newInsectList){
 				newInsectList[idx].move();
-				if(newInsectList[idx].catchFlag){
+				if(newInsectList[idx].removed){
+					var temp = Math.floor(Math.log(idx)/Math.log(2))-2;
+					flagIndex[temp] = 0;
+					delete newInsectList[idx];
+				}
+				else if(newInsectList[idx].catchFlag){
 					catchedInsectList[newInsectList[idx].colliderFlag] = newInsectList[newInsectList[idx].colliderFlag];
 					delete newInsectList[newInsectList[idx].colliderFlag];					
 				}
-				else if(newInsectList[idx].getZ()<=-15000){
-					newInsectList[idx].remove();
-					delete newInsectList[idx];
-				}
+				else if(newInsectList[idx].getZ()<=-800)
+					newInsectList[idx].setFall();
 				else if(newInsectList[idx].getZ()<=0)
 					if(!newInsectList[idx].getCollider())
 						newInsectList[idx].insertCollider(newInsectList[idx].colliderFlag,NET);	
@@ -52,18 +61,28 @@ var insectsManager = function(gameCallBack){
 		参数：number；
 		返回：无；*/
 		newInsect : function(kindNum){
-			var vec = vector2d(1,1).normalize();
+			var vec = vector2d(0.3,0.3);
 			vec.rotate(Math.random()*(Math.PI)*2);
+			var i = 0;
+			for(i;i<flagIndex.length;i++){
+				if(!flagIndex[i])
+					break;
+			}
+			if(!(i<flagIndex.length))
+				flagIndex.push(1);
+			else
+				flagIndex[i] = 1;
 			var myinc = insect(
-							Math.floor((Math.random()*SCREEN_WIDTH)),
-							Math.floor((Math.random()*SCREEN_HEIGHT)),
-							flagIndex,
+							Math.floor((10+Math.random()*(SCREEN_WIDTH-20))),
+							Math.floor((170+Math.random()*230)),
+							Math.pow(2,i+2),
 							insectKinds[kindNum],
 							vec,
 							gameCallBack
 						);
-			newInsectList[flagIndex] = myinc;
-			flagIndex *= 2;
+			newInsectList[Math.pow(2,i+2)] = myinc;
+			
+			
 		},
 		
 		onInsect : function(x,y){
